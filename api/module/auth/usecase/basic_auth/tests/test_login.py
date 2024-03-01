@@ -1,14 +1,14 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import TestCase
-from module.account.service import AccountService
-from module.account.sync_role_service import AccountSyncRoleService
+from module.account.repo import AccountRepo
+from module.account.sync_role_repo import AccountSyncRoleRepo
 from module.account.usecase.account_command.logic import AccountCommandLogic
-from module.account.usecase.account_command.service import AccountCommandService
-from module.auth.service import AuthService
-from module.auth.usecase.basic_auth.logic import BasicAuthLogic
+from module.account.usecase.account_command.repo import AccountCommandRepo
+from module.auth.repo import AuthRepo
 from module.auth.usecase.basic_auth.service import BasicAuthService
-from module.log.service import LogService
+from module.auth.usecase.basic_auth.repo import BasicAuthRepo
+from module.log.repo import LogRepo
 
 User = get_user_model()
 
@@ -16,12 +16,10 @@ User = get_user_model()
 class TestLogin(TestCase):
     def setUp(self) -> None:
         self.password = settings.SAMPLE_PASSWORD
-        self.login = BasicAuthLogic.login(
-            AuthService(), BasicAuthService(), LogService()
-        )
+        self.login = BasicAuthService.login(AuthRepo(), BasicAuthRepo(), LogRepo())
 
         AccountCommandLogic.seeding_users(
-            AccountService(), AccountSyncRoleService(), AccountCommandService()
+            AccountRepo(), AccountSyncRoleRepo(), AccountCommandRepo()
         )()
 
     def test_happy_case(self) -> None:

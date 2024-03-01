@@ -1,7 +1,7 @@
 from typing import Optional
 
 from django.http import HttpRequest
-from module.account.service import AccountService
+from module.account.repo import AccountRepo
 from ninja.security import HttpBearer
 from util.framework.authorization.auth_bearer import check_authenticate
 
@@ -19,8 +19,8 @@ class AuthRbac(HttpBearer):
             return None
         if request.user.is_staff or request.user.is_superuser:
             return token
-        account_service = AccountService()
-        pems, ok = account_service.get_list_pem(
+        account_repo = AccountRepo()
+        pems, ok = account_repo.get_list_pem(
             dict(module=self.module, action=self.action, roles__users=request.user)
         )
         if not ok:

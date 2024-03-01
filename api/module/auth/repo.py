@@ -13,7 +13,7 @@ from util.token_util import TokenUtil
 User = get_user_model()
 
 
-class AuthService(Auth):
+class AuthRepo(Auth):
     def get_user_from_token(self, access_token: Token) -> Result[UserSchema]:
         (result, ok) = TokenUtil.decode(access_token)
         if not ok:

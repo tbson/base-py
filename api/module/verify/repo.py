@@ -17,7 +17,7 @@ ExtraData = Optional[dict[str, str]]
 OTP_LENGTH = 6
 
 
-class VerifyService(Verify):
+class VerifyRepo(Verify):
     def get_otp(
         self, condition: Condition, for_resend: bool = False
     ) -> Result[OtpSchema]:

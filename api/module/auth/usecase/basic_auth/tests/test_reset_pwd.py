@@ -1,22 +1,22 @@
 from django.conf import settings
 from django.test import TestCase
 from contract.interface.email import Email
-from module.account.service import AccountService
-from module.account.sync_role_service import AccountSyncRoleService
-from module.account.usecase.account_command.logic import AccountCommandLogic
+from module.account.repo import AccountRepo
+from module.account.sync_role_repo import AccountSyncRoleRepo
 from module.account.usecase.account_command.service import AccountCommandService
-from module.auth.service import AuthService
-from module.auth.usecase.basic_auth.logic import BasicAuthLogic
+from module.account.usecase.account_command.repo import AccountCommandRepo
+from module.auth.repo import AuthRepo
 from module.auth.usecase.basic_auth.service import BasicAuthService
-from module.log.service import LogService
+from module.auth.usecase.basic_auth.repo import BasicAuthRepo
+from module.log.repo import LogRepo
 from module.verify.const import OtpType
-from module.verify.service import VerifyService
-from module.verify.usecase.otp.logic import OtpLogic
+from module.verify.repo import VerifyRepo
+from module.verify.usecase.otp.service import OtpService
 from contract.type.email import EmailBody, EmailSubject, EmailTo
 from util.string_util import StringUtil
 
 
-class EmailService(Email):
+class EmailRepo(Email):
     def send_email_async(
         self, subject: EmailSubject, body: EmailBody, to: EmailTo
     ) -> None:
@@ -31,21 +31,17 @@ class TestResetPwd(TestCase):
         self.new_password = f"{settings.SAMPLE_PASSWORD}1"
         self.new_password_confirm = f"{settings.SAMPLE_PASSWORD}1"
         self.new_password_wrong_confirm = f"{settings.SAMPLE_PASSWORD}2"
-        self.reset_pwd = BasicAuthLogic.reset_pwd(
-            BasicAuthService(), AccountService(), VerifyService(), LogService()
+        self.reset_pwd = BasicAuthService.reset_pwd(
+            BasicAuthRepo(), AccountRepo(), VerifyRepo(), LogRepo()
         )
-        self.send_otp = OtpLogic.send_otp(
-            AccountService(), VerifyService(), EmailService()
-        )
-        self.login = BasicAuthLogic.login(
-            AuthService(), BasicAuthService(), LogService()
-        )
+        self.send_otp = OtpService.send_otp(AccountRepo(), VerifyRepo(), EmailRepo())
+        self.login = BasicAuthService.login(AuthRepo(), BasicAuthRepo(), LogRepo())
 
-        AccountCommandLogic.seeding_users(
-            AccountService(), AccountSyncRoleService(), AccountCommandService()
+        AccountCommandService.seeding_users(
+            AccountRepo(), AccountSyncRoleRepo(), AccountCommandRepo()
         )()
 
-        VerifyService().set_trusted_target(self.username)
+        VerifyRepo().set_trusted_target(self.username)
 
     def test_happy_case(self) -> None:
         result, ok = self.send_otp(self.username, OtpType.RESET_PWD, self.ips)

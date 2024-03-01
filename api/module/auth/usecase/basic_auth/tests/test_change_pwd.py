@@ -1,13 +1,13 @@
 from django.conf import settings
 from django.test import TestCase
-from module.account.service import AccountService
-from module.account.sync_role_service import AccountSyncRoleService
-from module.account.usecase.account_command.logic import AccountCommandLogic
-from module.account.usecase.account_command.service import AccountCommandService
-from module.auth.service import AuthService
-from module.auth.usecase.basic_auth.logic import BasicAuthLogic
-from module.auth.usecase.basic_auth.service import BasicAuthService
-from module.log.service import LogService
+from module.account.repo import AccountRepo
+from module.account.sync_role_repo import AccountSyncRoleRepo
+from module.account.usecase.account_command.service import AccountCommandRepo
+from module.account.usecase.account_command.repo import AccountCommandRepo
+from module.auth.repo import AuthRepo
+from module.auth.usecase.basic_auth.logic import BasicAuthRepo
+from module.auth.usecase.basic_auth.repo import BasicAuthRepo
+from module.log.repo import LogRepo
 
 
 class TestChangePwd(TestCase):
@@ -16,14 +16,12 @@ class TestChangePwd(TestCase):
         self.current_pwd = settings.SAMPLE_PASSWORD
         self.password = "12345678"
         self.password_confirm = "12345678"
-        self.change_pwd = BasicAuthLogic.change_pwd(BasicAuthService(), LogService())
-        self.login = BasicAuthLogic.login(
-            AuthService(), BasicAuthService(), LogService()
-        )
-        AccountCommandLogic.seeding_users(
-            AccountService(), AccountSyncRoleService(), AccountCommandService()
+        self.change_pwd = BasicAuthRepo.change_pwd(BasicAuthRepo(), LogRepo())
+        self.login = BasicAuthRepo.login(AuthRepo(), BasicAuthRepo(), LogRepo())
+        AccountCommandRepo.seeding_users(
+            AccountRepo(), AccountSyncRoleRepo(), AccountCommandRepo()
         )()
-        user, _ = AccountService().get_user(dict(email=self.email))
+        user, _ = AccountRepo().get_user(dict(email=self.email))
         self.user = user
 
     def test_happy_case(self) -> None:

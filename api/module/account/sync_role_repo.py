@@ -10,7 +10,7 @@ from module.account.const import (
 )
 
 
-class AccountSyncRoleService(AccountSyncRole):
+class AccountSyncRoleRepo(AccountSyncRole):
     def sync_pems(self) -> dict[int, set[PemSchema]]:
         pem_list = AuthRbacUtil.get_pem_list()
         profile_type_map: dict[int, set[PemSchema]] = {}

@@ -1,10 +1,13 @@
 from typing import cast
 
 from django.http import HttpRequest
-from module.account.service import AccountService
-from module.auth.service import AuthService
-from module.auth.usecase.common_auth.logic import CommonAuthLogic, RefreshTokenOutput
-from module.auth.usecase.common_auth.service import CommonAuthService
+from module.account.repo import AccountRepo
+from module.auth.repo import AuthRepo
+from module.auth.usecase.common_auth.repo import CommonAuthRepo
+from module.auth.usecase.common_auth.service import (
+    CommonAuthService,
+    RefreshTokenOutput,
+)
 from module.auth.usecase.common_auth.validator import RefreshTokenInput
 from ninja import Router
 from contract.type.result import ErrorResponse, ErrorValue
@@ -18,7 +21,7 @@ TAGS = ["auth"]
 @router.post("/logout/", tags=TAGS, response={200: dict, 400: ErrorValue})
 def login(request: HttpRequest) -> dict | ErrorResponse:
     token = RequestUtil.get_token(request.headers)
-    (result, ok) = CommonAuthLogic.logout(token)
+    (result, ok) = CommonAuthService.logout(token)
     return result if ok else RequestUtil.err(result)
 
 
@@ -29,11 +32,11 @@ def refresh_token(
     request: HttpRequest, data: RefreshTokenInput
 ) -> RefreshTokenOutput | ErrorResponse:
     token = data.refresh_token
-    auth_service = AuthService()
-    common_auth_service = CommonAuthService()
-    account_service = AccountService()
-    (result, ok) = CommonAuthLogic.refresh_token(
-        auth_service, common_auth_service, account_service
+    auth_repo = AuthRepo()
+    common_auth_repo = CommonAuthRepo()
+    account_repo = AccountRepo()
+    (result, ok) = CommonAuthService.refresh_token(
+        auth_repo, common_auth_repo, account_repo
     )(token)
     return cast(RefreshTokenOutput, result) if ok else RequestUtil.err(result)
 
@@ -45,5 +48,5 @@ def refresh_token(
     response={200: dict, 400: ErrorValue},
 )
 def refresh_check(request: HttpRequest) -> dict | ErrorResponse:
-    (result, ok) = CommonAuthLogic.refresh_check()
+    (result, ok) = CommonAuthService.refresh_check()
     return result if ok else RequestUtil.err(result)

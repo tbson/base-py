@@ -1,22 +1,54 @@
-from contract.interface.config import VariableCrud
-from module.config.const import VARIABLE_TYPE_CHOICE
-from module.config.models import Variable
+from typing import Callable
+
+from contract.interface.config import Config, VariableCrud
 from ninja import Query
 from contract.type.general import Condition, QuerySet
 from contract.type.result import Result
 from contract.type.schema import VariableSchema
-from util.error_util import ErrorUtil
 
 
-class VariableService(VariableCrud):
-    def get_variable_list_with_filter(
-        self, condition: Condition, order: str, filter: Query
-    ) -> Result[QuerySet[VariableSchema]]:
-        try:
-            list_item = Variable.objects.filter(**condition).order_by(order)
-            return filter.filter(list_item), True
-        except Exception as e:
-            return ErrorUtil.format(e), False
+class VariableService:
+    @staticmethod
+    def get_list_paging_variable(variable_crud_repo: VariableCrud) -> Callable:
+        def inner(order: str, filter: Query) -> Result[QuerySet[VariableSchema]]:
+            condition: Condition = {}
+            return variable_crud_repo.get_variable_list_with_filter(
+                condition, order, filter
+            )
 
-    def get_type_option(self) -> list[dict]:
-        return [{"value": item[0], "label": item[1]} for item in VARIABLE_TYPE_CHOICE]
+        return inner
+
+    @staticmethod
+    def get_variable(config_repo: Config) -> Callable:
+        def inner(id: int) -> Result[VariableSchema]:
+            return config_repo.get_variable(dict(id=id))
+
+        return inner
+
+    @staticmethod
+    def create_variable(config_repo: Config) -> Callable:
+        def inner(data: dict) -> Result[VariableSchema]:
+            return config_repo.create_variable(data)
+
+        return inner
+
+    @staticmethod
+    def update_variable(config_repo: Config) -> Callable:
+        def inner(id: int, data: dict) -> Result[VariableSchema]:
+            return config_repo.update_variable(dict(id=id), data)
+
+        return inner
+
+    @staticmethod
+    def delete_variable(config_repo: Config) -> Callable:
+        def inner(id: int) -> Result[list[int]]:
+            return config_repo.delete_variable(dict(id=id))
+
+        return inner
+
+    @staticmethod
+    def delete_list_variable(config_repo: Config) -> Callable:
+        def inner(ids: list[int]) -> Result[list[int]]:
+            return config_repo.delete_variable(dict(id__in=ids))
+
+        return inner

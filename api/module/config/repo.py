@@ -10,7 +10,7 @@ from util.error_util import ErrorUtil
 from util.framework.schema_util import SchemaUtil
 
 
-class ConfigService(Config):
+class ConfigRepo(Config):
     def get_list_variable(
         self, condition: Condition, limit: Optional[int] = None, order_by: str = "-id"
     ) -> Result[QuerySet[VariableSchema]]:

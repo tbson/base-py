@@ -14,21 +14,21 @@ class ProfilePresent(Schema):
     full_name: str
 
 
-class ProfileLogic:
+class ProfileService:
     @staticmethod
     def get_profile(
-        account_service: Account,
+        account_repo: Account,
     ) -> Callable[[int], Result[UserSchema]]:
         def inner(id: int) -> Result[UserSchema]:
-            return account_service.get_user(dict(id=id))
+            return account_repo.get_user(dict(id=id))
 
         return inner
 
     @staticmethod
     def update_profile(
-        account_service: Account,
+        account_repo: Account,
     ) -> Callable[[int, dict], Result[UserSchema]]:
         def inner(id: int, data: dict) -> Result[UserSchema]:
-            return account_service.update_user(dict(id=id), data)
+            return account_repo.update_user(dict(id=id), data)
 
         return inner

@@ -1,18 +1,63 @@
-from contract.interface.auth import CommonAuth
-from contract.type.result import Result
+from typing import Callable, cast
+
+from contract.interface.account import Account
+from contract.interface.auth import Auth, CommonAuth
+from ninja import Schema
+from contract.type.general import Token
+from contract.type.result import ErrorValue, Result
 from contract.type.schema import UserSchema
-from util.error_util import ErrorUtil
 from util.token_util import TokenUtil
 
 
-class CommonAuthService(CommonAuth):
-    def update_refresh_token_signature(
-        self, user: UserSchema, refresh_token: str
-    ) -> Result[UserSchema]:
-        try:
-            refresh_token_signature = TokenUtil.get_token_signature(refresh_token)
-            user.refresh_token_signature = refresh_token_signature
-            user.save()
-            return user, True
-        except Exception as e:
-            return ErrorUtil.format(e), False
+class RefreshTokenOutput(Schema):
+    token: Token
+    refresh_token: Token
+
+
+class CommonAuthService:
+    @staticmethod
+    def logout(token: Token) -> Result[dict]:
+        # Do some cleanup here
+        return {}, True
+
+    @staticmethod
+    def refresh_token(
+        auth_repo: Auth,
+        common_auth_repo: CommonAuth,
+        account_repo: Account,
+    ) -> Callable[[Token], Result[RefreshTokenOutput]]:
+        def inner(token: Token) -> Result[RefreshTokenOutput]:
+            result, ok = TokenUtil.refresh_token(token)
+            if not ok:
+                result = cast(ErrorValue, result)
+                return (result, False)
+
+            (access_token, refresh_token) = result
+            user_id = TokenUtil.get_id(refresh_token)
+            result, ok = account_repo.get_user(dict(id=user_id))
+            if not ok:
+                return (result, False)
+            user = cast(UserSchema, result)
+            result, ok = common_auth_repo.update_refresh_token_signature(
+                user, refresh_token
+            )
+            if not ok:
+                return (result, False)
+
+            update_last_login_result, ok = auth_repo.update_last_login(
+                user, refresh_token
+            )
+            if not ok:
+                update_last_login_result = cast(ErrorValue, update_last_login_result)
+                return (update_last_login_result, False)
+
+            return (
+                RefreshTokenOutput(token=access_token, refresh_token=refresh_token),
+                True,
+            )
+
+        return inner
+
+    @staticmethod
+    def refresh_check() -> Result[dict]:
+        return {}, True

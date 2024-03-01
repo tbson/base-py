@@ -1,10 +1,10 @@
 from typing import cast
 
 from django.http import HttpRequest
-from module.account.service import AccountService
+from module.account.repo import AccountRepo
 from module.verify.const import OtpType
-from module.verify.service import VerifyService
-from module.verify.usecase.otp.logic import OtpLogic, SendOtpOutput
+from module.verify.repo import VerifyRepo
+from module.verify.usecase.otp.service import OtpService, SendOtpOutput
 from module.verify.usecase.otp.validator import (
     ResendOtpInput,
     SendOtpInput,
@@ -29,7 +29,7 @@ def send_reset_pwd_otp(
 ) -> SendOtpOutput | ErrorResponse:
     ips = RequestUtil.get_ips(request.headers)
     otp_type = OtpType.RESET_PWD
-    (result, ok) = OtpLogic.send_otp(AccountService(), VerifyService(), EmailRepo())(
+    (result, ok) = OtpService.send_otp(AccountRepo(), VerifyRepo(), EmailRepo())(
         data.username, otp_type, ips
     )
     return result if ok else RequestUtil.err(result)
@@ -45,7 +45,7 @@ def send_signup_otp(
 ) -> SendOtpOutput | ErrorResponse:
     ips = RequestUtil.get_ips(request.headers)
     otp_type = OtpType.SIGNUP
-    (result, ok) = OtpLogic.send_otp(AccountService(), VerifyService(), EmailRepo())(
+    (result, ok) = OtpService.send_otp(AccountRepo(), VerifyRepo(), EmailRepo())(
         data.username, otp_type, ips
     )
     return result if ok else RequestUtil.err(result)
@@ -59,7 +59,7 @@ def send_signup_otp(
 def resend_otp(
     request: HttpRequest, data: ResendOtpInput
 ) -> SendOtpOutput | ErrorResponse:
-    (result, ok) = OtpLogic.resend_otp(AccountService(), VerifyService(), EmailRepo())(
+    (result, ok) = OtpService.resend_otp(AccountRepo(), VerifyRepo(), EmailRepo())(
         data.verify_id
     )
     return cast(SendOtpOutput, result) if ok else RequestUtil.err(result)
@@ -71,9 +71,7 @@ def resend_otp(
     response={200: dict, 400: ErrorValue},
 )
 def verify_otp(request: HttpRequest, data: VerifyOtpInput) -> dict | ErrorResponse:
-    (result, ok) = OtpLogic.verify_otp(VerifyService())(
-        data.verify_id, data.verify_code
-    )
+    (result, ok) = OtpService.verify_otp(VerifyRepo())(data.verify_id, data.verify_code)
     return {} if ok else RequestUtil.err(result)
 
 
@@ -83,5 +81,5 @@ def verify_otp(request: HttpRequest, data: VerifyOtpInput) -> dict | ErrorRespon
     response={200: dict, 400: ErrorValue},
 )
 def check_otp(request: HttpRequest, data: VerifyOtpInput) -> dict | ErrorResponse:
-    (result, ok) = OtpLogic.check_otp(VerifyService())(data.verify_id, data.verify_code)
+    (result, ok) = OtpService.check_otp(VerifyRepo())(data.verify_id, data.verify_code)
     return {} if ok else RequestUtil.err(result)

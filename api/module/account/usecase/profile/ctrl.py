@@ -1,8 +1,8 @@
 from typing import cast
 
 from django.http import HttpRequest
-from module.account.service import AccountService
-from module.account.usecase.profile.logic import ProfileLogic, ProfilePresent
+from module.account.repo import AccountRepo
+from module.account.usecase.profile.service import ProfileService, ProfilePresent
 from module.account.usecase.profile.validator import UpdateProfileInput
 from ninja import Router
 from contract.type.result import ErrorResponse, ErrorValue
@@ -23,8 +23,8 @@ TAGS = ["account / manage profile"]
 )
 def get_profile(request: HttpRequest) -> ProfilePresent | ErrorResponse:
     user = request.user
-    account_service = AccountService()
-    result, ok = ProfileLogic.get_profile(account_service)(user.id)
+    account_repo = AccountRepo()
+    result, ok = ProfileService.get_profile(account_repo)(user.id)
     return cast(ProfilePresent, result) if ok else RequestUtil.err(result)
 
 
@@ -38,6 +38,6 @@ def update_update(
     request: HttpRequest, data: UpdateProfileInput
 ) -> ProfilePresent | ErrorResponse:
     user = request.user
-    account_service = AccountService()
-    result, ok = ProfileLogic.update_profile(account_service)(user.id, data.dict())
+    account_repo = AccountRepo()
+    result, ok = ProfileService.update_profile(account_repo)(user.id, data.dict())
     return cast(ProfilePresent, result) if ok else RequestUtil.err(result)

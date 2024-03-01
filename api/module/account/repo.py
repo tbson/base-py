@@ -10,7 +10,7 @@ from util.error_util import ErrorUtil
 from util.framework.schema_util import SchemaUtil
 
 
-class AccountService(Account):
+class AccountRepo(Account):
     def get_list_tenant(
         self, condition: Condition, limit: Optional[int] = None, order_by: str = "-id"
     ) -> Result[QuerySet[TenantSchema]]:

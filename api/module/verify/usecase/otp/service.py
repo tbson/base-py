@@ -15,10 +15,10 @@ class SendOtpOutput(Schema):
     verify_target: str
 
 
-class OtpLogic:
+class OtpService:
     @staticmethod
     def send_otp(
-        account_service: Account, verify_service: Verify, email_repo: Email
+        account_repo: Account, verify_repo: Verify, email_repo: Email
     ) -> Callable:
         def inner(
             username: str, otp_type: int, ips: list[str]
@@ -27,18 +27,18 @@ class OtpLogic:
                 verify_id=StringUtil.get_uuid(),
                 verify_target=StringUtil.apply_mask(username),
             )
-            (user, ok) = account_service.get_user(dict(username=username))
+            (user, ok) = account_repo.get_user(dict(username=username))
             if not ok:
                 return default_result, True
             user = cast(UserSchema, user)
             email = user.email
-            (result, ok) = verify_service.create_otp(email, otp_type, ips)
+            (result, ok) = verify_repo.create_otp(email, otp_type, ips)
             if not ok:
                 return result, False
             otp = cast(OtpSchema, result)
             # Do not send email to trusted target
-            if not verify_service.is_trusted_target(email):
-                (subject, body, to) = verify_service.get_otp_email_input(otp)
+            if not verify_repo.is_trusted_target(email):
+                (subject, body, to) = verify_repo.get_otp_email_input(otp)
                 email_repo.send_email_async(subject, body, to)
             return (
                 SendOtpOutput(
@@ -51,25 +51,25 @@ class OtpLogic:
         return inner
 
     @staticmethod
-    def verify_otp(verify_service: Verify) -> Callable[[str, str], Result[OtpSchema]]:
+    def verify_otp(verify_repo: Verify) -> Callable[[str, str], Result[OtpSchema]]:
         def inner(verify_id: str, verify_code: str) -> Result[OtpSchema]:
-            return verify_service.verify_otp(verify_id, verify_code)
+            return verify_repo.verify_otp(verify_id, verify_code)
 
         return inner
 
     @staticmethod
-    def check_otp(verify_service: Verify) -> Callable[[str, str], Result[OtpSchema]]:
+    def check_otp(verify_repo: Verify) -> Callable[[str, str], Result[OtpSchema]]:
         def inner(verify_id: str, verify_code: str) -> Result[OtpSchema]:
-            return verify_service.verify_otp(verify_id, verify_code, True)
+            return verify_repo.verify_otp(verify_id, verify_code, True)
 
         return inner
 
     @staticmethod
     def resend_otp(
-        account_service: Account, verify_service: Verify, email_repo: Email
+        account_repo: Account, verify_repo: Verify, email_repo: Email
     ) -> Callable[[str], Result[SendOtpOutput]]:
         def inner(id: str) -> Result[SendOtpOutput]:
-            result, ok = verify_service.get_otp(
+            result, ok = verify_repo.get_otp(
                 dict(id=id, resend_expired_at__gte=DateUtil.now())
             )
             if not ok:
@@ -80,7 +80,7 @@ class OtpLogic:
             otp_type = otp.type
             ips = otp.ips
 
-            return OtpLogic.send_otp(account_service, verify_service, email_repo)(
+            return OtpService.send_otp(account_repo, verify_repo, email_repo)(
                 target, otp_type, ips
             )
 

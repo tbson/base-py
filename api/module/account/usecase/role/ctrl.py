@@ -2,10 +2,10 @@ from typing import Optional
 
 from django.http import HttpRequest
 from module.account.const import ProfileType
-from module.account.service import AccountService
-from module.account.usecase.role.logic import RoleLogic
-from module.account.usecase.role.presenter import RolePagingPresent, RolePresent
+from module.account.repo import AccountRepo
 from module.account.usecase.role.service import RoleService
+from module.account.usecase.role.presenter import RolePagingPresent, RolePresent
+from module.account.usecase.role.repo import RoleRepo
 from module.account.usecase.role.validator import CreateRoleInput, UpdateRoleInput
 from ninja import Field, FilterSchema, Query, Router
 from contract.type.result import ErrorResponse, ErrorValue
@@ -32,12 +32,12 @@ def get_list(
     request: HttpRequest, page: int = 1, order: str = "-id", filter: Filter = Query(...)
 ) -> RolePagingPresent | ErrorResponse:
     user = request.user
-    role_service = RoleService()
-    result, ok = RoleLogic.get_list_paging_role(role_service)(order, filter)
+    role_repo = RoleRepo()
+    result, ok = RoleService.get_list_paging_role(role_repo)(order, filter)
     if not ok:
         return RequestUtil.err(result)
-    pem_option = RoleService().get_pem_option()
-    profile_type_option = RoleService().get_profile_type_option(user.tenant_id)
+    pem_option = RoleRepo().get_pem_option()
+    profile_type_option = RoleRepo().get_profile_type_option(user.tenant_id)
     return RolePagingPresent.get_paging(page)(
         result, {"option": {"pem": pem_option, "profile_type": profile_type_option}}
     )
@@ -50,8 +50,8 @@ def get_list(
     response={200: RolePresent, 400: ErrorValue},
 )
 def get_item(request: HttpRequest, id: int) -> RolePresent | ErrorResponse:
-    account_service = AccountService()
-    result, ok = RoleLogic.get_role(account_service)(id)
+    account_repo = AccountRepo()
+    result, ok = RoleService.get_role(account_repo)(id)
     return result if ok else RequestUtil.err(result)
 
 
@@ -62,8 +62,8 @@ def get_item(request: HttpRequest, id: int) -> RolePresent | ErrorResponse:
     response={200: RolePresent, 400: ErrorValue},
 )
 def create(request: HttpRequest, data: CreateRoleInput) -> RolePresent | ErrorResponse:
-    account_service = AccountService()
-    result, ok = RoleLogic.create_role(account_service)(data.dict())
+    account_repo = AccountRepo()
+    result, ok = RoleService.create_role(account_repo)(data.dict())
     return result if ok else RequestUtil.err(result)
 
 
@@ -76,8 +76,8 @@ def create(request: HttpRequest, data: CreateRoleInput) -> RolePresent | ErrorRe
 def update(
     request: HttpRequest, id: int, data: UpdateRoleInput
 ) -> RolePresent | ErrorResponse:
-    account_service = AccountService()
-    result, ok = RoleLogic.update_role(account_service)(
+    account_repo = AccountRepo()
+    result, ok = RoleService.update_role(account_repo)(
         id, data.dict(exclude_unset=True)
     )
     return result if ok else RequestUtil.err(result)
@@ -90,8 +90,8 @@ def update(
     response={200: list[int], 400: ErrorValue},
 )
 def delete(request: HttpRequest, id: int) -> list[int] | ErrorResponse:
-    account_service = AccountService()
-    result, ok = RoleLogic.delete_role(account_service)(id)
+    account_repo = AccountRepo()
+    result, ok = RoleService.delete_role(account_repo)(id)
     return result if ok else RequestUtil.err(result)
 
 
@@ -103,6 +103,6 @@ def delete(request: HttpRequest, id: int) -> list[int] | ErrorResponse:
 )
 def delete_list(request: HttpRequest, ids: str) -> list[int] | ErrorResponse:
     id_list = ids.split(",")
-    account_service = AccountService()
-    result, ok = RoleLogic.delete_list_role(account_service)(id_list)
+    account_repo = AccountRepo()
+    result, ok = RoleService.delete_list_role(account_repo)(id_list)
     return result if ok else RequestUtil.err(result)

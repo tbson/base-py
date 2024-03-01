@@ -7,7 +7,7 @@ from django.contrib.auth.hashers import make_password
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 from contract.interface.log import Log
-from module.account.service import AccountService
+from module.account.repo import AccountRepo
 from module.log.const import AuditLogType
 from module.log.models import AuditLog, EmailLog
 from pydantic import BaseModel
@@ -22,7 +22,7 @@ from util.pwd_util import PwdUtil
 from util.request_util import RequestUtil
 
 
-class LogService(Log):
+class LogRepo(Log):
     def get_list_email_log(
         self, condition: Condition, limit: Optional[int] = None, order_by: str = "-id"
     ) -> Result[QuerySet[EmailLogSchema]]:
@@ -143,7 +143,7 @@ class LogService(Log):
         )
 
 
-class AuditLogService:
+class AuditLogRepo:
     def __init__(self, request: HttpRequest, payload: Optional[dict] = None) -> None:
         self.request = request
         if payload is None:
@@ -162,9 +162,9 @@ class AuditLogService:
         ok: bool,
         note: str,
     ) -> Result[AuditLogSchema]:
-        log_service = LogService()
+        log_repo = LogRepo()
         tenant_uid = None
-        user_result, user_ok = AccountService().get_user(dict(username=username))
+        user_result, user_ok = AccountRepo().get_user(dict(username=username))
         if not user_ok:
             return user_result, False
         user = cast(UserSchema, user_result)
@@ -200,7 +200,7 @@ class AuditLogService:
             duration=duration,
             note=note,
         )
-        return log_service.create_audit_log(condition)
+        return log_repo.create_audit_log(condition)
 
     def log_login(
         self,

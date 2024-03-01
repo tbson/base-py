@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
-from module.account.service import AccountService
-from module.account.sync_groups_pems import AccountSyncGroupsPems
-from module.account.usecase.account_command.logic import AccountCommandLogic
+from module.account.repo import AccountRepo
+from module.account.sync_role_repo import AccountSyncRoleRepo
+from module.account.usecase.account_command.service import AccountCommandService
 from contract.type.general import Args, Kwargs
 
 
@@ -10,7 +10,5 @@ class Command(BaseCommand):
 
     def handle(self, *args: Args, **options: Kwargs) -> None:
         self.stdout.write(self.style.SUCCESS("Start..."))
-        AccountCommandLogic.sync_groups_pems(
-            AccountService(), AccountSyncGroupsPems()
-        )()
+        AccountCommandService.sync_groups_pems(AccountRepo(), AccountSyncRoleRepo())()
         self.stdout.write(self.style.SUCCESS("Done!!!"))
