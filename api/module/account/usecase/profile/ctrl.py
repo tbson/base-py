@@ -23,8 +23,7 @@ TAGS = ["account / manage profile"]
 )
 def get_profile(request: HttpRequest) -> ProfilePresent | ErrorResponse:
     user = request.user
-    account_repo = AccountRepo()
-    result, ok = ProfileService.get_profile(account_repo)(user.id)
+    result, ok = ProfileService.get_profile(AccountRepo())(user.id)
     return cast(ProfilePresent, result) if ok else RequestUtil.err(result)
 
 
@@ -38,6 +37,5 @@ def update_update(
     request: HttpRequest, data: UpdateProfileInput
 ) -> ProfilePresent | ErrorResponse:
     user = request.user
-    account_repo = AccountRepo()
-    result, ok = ProfileService.update_profile(account_repo)(user.id, data.dict())
+    result, ok = ProfileService.update_profile(AccountRepo())(user.id, data.dict())
     return cast(ProfilePresent, result) if ok else RequestUtil.err(result)

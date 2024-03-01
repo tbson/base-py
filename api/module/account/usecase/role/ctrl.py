@@ -32,8 +32,7 @@ def get_list(
     request: HttpRequest, page: int = 1, order: str = "-id", filter: Filter = Query(...)
 ) -> RolePagingPresent | ErrorResponse:
     user = request.user
-    role_repo = RoleRepo()
-    result, ok = RoleService.get_list_paging_role(role_repo)(order, filter)
+    result, ok = RoleService.get_list_paging_role(RoleRepo())(order, filter)
     if not ok:
         return RequestUtil.err(result)
     pem_option = RoleRepo().get_pem_option()
@@ -50,8 +49,7 @@ def get_list(
     response={200: RolePresent, 400: ErrorValue},
 )
 def get_item(request: HttpRequest, id: int) -> RolePresent | ErrorResponse:
-    account_repo = AccountRepo()
-    result, ok = RoleService.get_role(account_repo)(id)
+    result, ok = RoleService.get_role(AccountRepo())(id)
     return result if ok else RequestUtil.err(result)
 
 
@@ -62,8 +60,7 @@ def get_item(request: HttpRequest, id: int) -> RolePresent | ErrorResponse:
     response={200: RolePresent, 400: ErrorValue},
 )
 def create(request: HttpRequest, data: CreateRoleInput) -> RolePresent | ErrorResponse:
-    account_repo = AccountRepo()
-    result, ok = RoleService.create_role(account_repo)(data.dict())
+    result, ok = RoleService.create_role(AccountRepo())(data.dict())
     return result if ok else RequestUtil.err(result)
 
 
@@ -76,8 +73,7 @@ def create(request: HttpRequest, data: CreateRoleInput) -> RolePresent | ErrorRe
 def update(
     request: HttpRequest, id: int, data: UpdateRoleInput
 ) -> RolePresent | ErrorResponse:
-    account_repo = AccountRepo()
-    result, ok = RoleService.update_role(account_repo)(
+    result, ok = RoleService.update_role(AccountRepo())(
         id, data.dict(exclude_unset=True)
     )
     return result if ok else RequestUtil.err(result)
@@ -90,8 +86,7 @@ def update(
     response={200: list[int], 400: ErrorValue},
 )
 def delete(request: HttpRequest, id: int) -> list[int] | ErrorResponse:
-    account_repo = AccountRepo()
-    result, ok = RoleService.delete_role(account_repo)(id)
+    result, ok = RoleService.delete_role(AccountRepo())(id)
     return result if ok else RequestUtil.err(result)
 
 
@@ -103,6 +98,5 @@ def delete(request: HttpRequest, id: int) -> list[int] | ErrorResponse:
 )
 def delete_list(request: HttpRequest, ids: str) -> list[int] | ErrorResponse:
     id_list = ids.split(",")
-    account_repo = AccountRepo()
-    result, ok = RoleService.delete_list_role(account_repo)(id_list)
+    result, ok = RoleService.delete_list_role(AccountRepo())(id_list)
     return result if ok else RequestUtil.err(result)

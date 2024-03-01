@@ -32,11 +32,8 @@ def refresh_token(
     request: HttpRequest, data: RefreshTokenInput
 ) -> RefreshTokenOutput | ErrorResponse:
     token = data.refresh_token
-    auth_repo = AuthRepo()
-    common_auth_repo = CommonAuthRepo()
-    account_repo = AccountRepo()
     (result, ok) = CommonAuthService.refresh_token(
-        auth_repo, common_auth_repo, account_repo
+        AuthRepo(), CommonAuthRepo(), AccountRepo()
     )(token)
     return cast(RefreshTokenOutput, result) if ok else RequestUtil.err(result)
 

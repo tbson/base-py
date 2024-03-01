@@ -40,9 +40,8 @@ class Filter(FilterSchema):
 def get_list(
     request: HttpRequest, page: int = 1, order: str = "-id", filter: Filter = Query(...)
 ) -> UserPagingPresent | ErrorResponse:
-    user_repo = UserRepo()
     user = request.user
-    result, ok = UserService.get_list_paging_user(user_repo)(
+    result, ok = UserService.get_list_paging_user(UserRepo())(
         user.tenant_id, order, filter
     )
     if not ok:
@@ -58,8 +57,7 @@ def get_list(
     response={200: UserPresent, 400: ErrorValue},
 )
 def get_item(request: HttpRequest, id: int) -> UserPresent | ErrorResponse:
-    account_repo = AccountRepo()
-    result, ok = UserService.get_user(account_repo)(id)
+    result, ok = UserService.get_user(AccountRepo())(id)
     return result if ok else RequestUtil.err(result)
 
 
@@ -70,8 +68,7 @@ def get_item(request: HttpRequest, id: int) -> UserPresent | ErrorResponse:
     response={200: UserPresent, 400: ErrorValue},
 )
 def create(request: HttpRequest, data: CreateUserInput) -> UserPresent | ErrorResponse:
-    account_repo = AccountRepo()
-    result, ok = UserService.create_user(account_repo)(data.dict())
+    result, ok = UserService.create_user(AccountRepo())(data.dict())
     return result if ok else RequestUtil.err(result)
 
 
@@ -84,8 +81,7 @@ def create(request: HttpRequest, data: CreateUserInput) -> UserPresent | ErrorRe
 def update(
     request: HttpRequest, id: int, data: UpdateUserInput
 ) -> UserPresent | ErrorResponse:
-    account_repo = AccountRepo()
-    result, ok = UserService.update_user(account_repo)(
+    result, ok = UserService.update_user(AccountRepo())(
         id, data.dict(exclude_unset=True)
     )
     return result if ok else RequestUtil.err(result)
@@ -98,8 +94,7 @@ def update(
     response={200: list[int], 400: ErrorValue},
 )
 def delete(request: HttpRequest, id: int) -> list[int] | ErrorResponse:
-    account_repo = AccountRepo()
-    result, ok = UserService.delete_user(account_repo)(id)
+    result, ok = UserService.delete_user(AccountRepo())(id)
     return result if ok else RequestUtil.err(result)
 
 
@@ -111,6 +106,5 @@ def delete(request: HttpRequest, id: int) -> list[int] | ErrorResponse:
 )
 def delete_list(request: HttpRequest, ids: str) -> list[int] | ErrorResponse:
     id_list = ids.split(",")
-    account_repo = AccountRepo()
-    result, ok = UserService.delete_list_user(account_repo)(id_list)
+    result, ok = UserService.delete_list_user(AccountRepo())(id_list)
     return result if ok else RequestUtil.err(result)

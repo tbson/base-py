@@ -40,8 +40,7 @@ class Filter(FilterSchema):
 def get_list(
     request: HttpRequest, page: int = 1, order: str = "-id", filter: Filter = Query(...)
 ) -> VariablePagingPresent | ErrorResponse:
-    variable_repo = VariableRepo()
-    result, ok = VariableService.get_list_paging_variable(variable_repo)(order, filter)
+    result, ok = VariableService.get_list_paging_variable(VariableRepo())(order, filter)
     if not ok:
         return RequestUtil.err(result)
     type_option = VariableRepo().get_type_option()
@@ -57,8 +56,7 @@ def get_list(
     response={200: VariablePresent, 400: ErrorValue},
 )
 def get_item(request: HttpRequest, id: int) -> VariablePresent | ErrorResponse:
-    config_repo = ConfigRepo()
-    result, ok = VariableService.get_variable(config_repo)(id)
+    result, ok = VariableService.get_variable(ConfigRepo())(id)
     return result if ok else RequestUtil.err(result)
 
 
@@ -71,8 +69,7 @@ def get_item(request: HttpRequest, id: int) -> VariablePresent | ErrorResponse:
 def create(
     request: HttpRequest, data: CreateVariableInput
 ) -> VariablePresent | ErrorResponse:
-    config_repo = ConfigRepo()
-    result, ok = VariableService.create_variable(config_repo)(data.dict())
+    result, ok = VariableService.create_variable(ConfigRepo())(data.dict())
     return result if ok else RequestUtil.err(result)
 
 
@@ -85,8 +82,7 @@ def create(
 def update(
     request: HttpRequest, id: int, data: UpdateVariableInput
 ) -> VariablePresent | ErrorResponse:
-    config_repo = ConfigRepo()
-    result, ok = VariableService.update_variable(config_repo)(
+    result, ok = VariableService.update_variable(ConfigRepo())(
         id, data.dict(exclude_unset=True)
     )
     return result if ok else RequestUtil.err(result)
@@ -99,8 +95,7 @@ def update(
     response={200: list[int], 400: ErrorValue},
 )
 def delete(request: HttpRequest, id: int) -> list[int] | ErrorResponse:
-    config_repo = ConfigRepo()
-    result, ok = VariableService.delete_variable(config_repo)(id)
+    result, ok = VariableService.delete_variable(ConfigRepo())(id)
     return result if ok else RequestUtil.err(result)
 
 
@@ -112,6 +107,5 @@ def delete(request: HttpRequest, id: int) -> list[int] | ErrorResponse:
 )
 def delete_list(request: HttpRequest, ids: str) -> list[int] | ErrorResponse:
     id_list = ids.split(",")
-    config_repo = ConfigRepo()
-    result, ok = VariableService.delete_list_variable(config_repo)(id_list)
+    result, ok = VariableService.delete_list_variable(ConfigRepo())(id_list)
     return result if ok else RequestUtil.err(result)
