@@ -1,11 +1,11 @@
 from typing import Optional
 
 from django.utils.translation import gettext_lazy as _
-from interface.config import Config
+from contract.interface.config import Config
 from module.config.models import Variable
-from type.general import Condition, QuerySet
-from type.result import Result
-from type.schema import VariableSchema
+from contract.type.general import Condition, QuerySet
+from contract.type.result import Result
+from contract.type.schema import VariableSchema
 from util.error_util import ErrorUtil
 from util.framework.schema_util import SchemaUtil
 

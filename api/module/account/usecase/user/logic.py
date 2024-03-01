@@ -1,10 +1,10 @@
 from typing import Callable, Optional
 
-from interface.account import Account, UserCrud
+from contract.interface.account import Account, UserCrud
 from ninja import Query
-from type.general import Condition, QuerySet
-from type.result import Result
-from type.schema import UserSchema
+from contract.type.general import Condition, QuerySet
+from contract.type.result import Result
+from contract.type.schema import UserSchema
 
 
 class UserLogic:

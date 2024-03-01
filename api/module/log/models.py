@@ -1,7 +1,7 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from module.log.const import SECURITY_LOG_TYPE_CHOICE
-from type.schema import AuditLogSchema, EmailLogSchema
+from contract.type.schema import AuditLogSchema, EmailLogSchema
 from util.framework.model.timestamped_model import TimestampedModel
 
 

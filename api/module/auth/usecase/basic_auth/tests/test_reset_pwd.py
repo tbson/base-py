@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.test import TestCase
-from interface.email import Email
+from contract.interface.email import Email
 from module.account.service import AccountService
 from module.account.sync_role_service import AccountSyncRoleService
 from module.account.usecase.account_command.logic import AccountCommandLogic
@@ -12,7 +12,7 @@ from module.log.service import LogService
 from module.verify.const import OtpType
 from module.verify.service import VerifyService
 from module.verify.usecase.otp.logic import OtpLogic
-from type.email import EmailBody, EmailSubject, EmailTo
+from contract.type.email import EmailBody, EmailSubject, EmailTo
 from util.string_util import StringUtil
 
 

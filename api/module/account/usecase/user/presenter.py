@@ -2,8 +2,8 @@ from typing import Callable, List
 
 from module.account.models import User
 from ninja import ModelSchema
-from type.general import QuerySet
-from type.schema import UserSchema
+from contract.type.general import QuerySet
+from contract.type.schema import UserSchema
 from util.framework.paging_util import PagingResponse, PagingUtil
 
 

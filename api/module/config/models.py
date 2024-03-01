@@ -1,6 +1,6 @@
 from django.db import models
 from module.config.const import VARIABLE_TYPE_CHOICE, VARIABLE_TYPE_DICT, VariableType
-from type.schema import VariableSchema
+from contract.type.schema import VariableSchema
 
 
 class Variable(models.Model, VariableSchema):

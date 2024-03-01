@@ -6,14 +6,14 @@ from django.conf import settings
 from django.contrib.auth.hashers import make_password
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
-from interface.log import Log
+from contract.interface.log import Log
 from module.account.service import AccountService
 from module.log.const import AuditLogType
 from module.log.models import AuditLog, EmailLog
 from pydantic import BaseModel
-from type.general import Condition, QuerySet
-from type.result import ErrorValue, Result
-from type.schema import AuditLogSchema, EmailLogSchema, UserSchema
+from contract.type.general import Condition, QuerySet
+from contract.type.result import ErrorValue, Result
+from contract.type.schema import AuditLogSchema, EmailLogSchema, UserSchema
 from util.date_util import DateUtil
 from util.error_util import ErrorUtil
 from util.framework.schema_util import SchemaUtil

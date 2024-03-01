@@ -1,6 +1,6 @@
 import abc
 
-from type.email import EmailBody, EmailSubject, EmailTo
+from contract.type.email import EmailBody, EmailSubject, EmailTo
 
 
 class Email(abc.ABC):

@@ -1,13 +1,13 @@
 from typing import Callable, cast
 
-from interface.account import Account
-from interface.auth import Auth, BasicAuth
-from interface.log import Log
-from interface.verify import Verify
+from contract.interface.account import Account
+from contract.interface.auth import Auth, BasicAuth
+from contract.interface.log import Log
+from contract.interface.verify import Verify
 from ninja import Schema
-from type.general import Permissions, ProfileType, Token
-from type.result import ErrorValue, Result
-from type.schema import OtpSchema, UserSchema
+from contract.type.general import Permissions, ProfileType, Token
+from contract.type.result import ErrorValue, Result
+from contract.type.schema import OtpSchema, UserSchema
 
 
 class LoginOutput(Schema):

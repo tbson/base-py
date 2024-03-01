@@ -1,10 +1,10 @@
 from typing import Callable
 
-from interface.account import Account, RoleCrud
+from contract.interface.account import Account, RoleCrud
 from ninja import Query
-from type.general import Condition, QuerySet
-from type.result import Result
-from type.schema import RoleSchema
+from contract.type.general import Condition, QuerySet
+from contract.type.result import Result
+from contract.type.schema import RoleSchema
 
 
 class RoleLogic:

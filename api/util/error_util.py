@@ -3,7 +3,7 @@ from typing import Any, Optional
 
 from django.utils.translation import gettext_lazy as _
 from ninja.errors import ValidationError
-from type.result import ErrorValue
+from contract.type.result import ErrorValue
 
 PYDANTIC_ERROR_MAP = {
     "value_error.missing": _("this field is required"),

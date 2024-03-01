@@ -5,7 +5,7 @@ from module.account.service import AccountService
 from module.account.usecase.profile.logic import ProfileLogic, ProfilePresent
 from module.account.usecase.profile.validator import UpdateProfileInput
 from ninja import Router
-from type.result import ErrorResponse, ErrorValue
+from contract.type.result import ErrorResponse, ErrorValue
 from util.framework.authorization.auth_bearer import AuthBearer
 from util.request_util import RequestUtil
 

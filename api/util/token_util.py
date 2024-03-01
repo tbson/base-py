@@ -4,8 +4,8 @@ from uuid import uuid4
 import jwt
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-from type.general import Token
-from type.result import Result
+from contract.type.general import Token
+from contract.type.result import Result
 from util.date_util import DateUtil
 from util.error_util import ErrorUtil
 

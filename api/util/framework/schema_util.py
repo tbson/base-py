@@ -1,5 +1,5 @@
-from type.general import QuerySetObj
-from type.result import Result
+from contract.type.general import QuerySetObj
+from contract.type.result import Result
 from util.error_util import ErrorUtil
 
 

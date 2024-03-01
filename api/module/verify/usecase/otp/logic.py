@@ -1,11 +1,11 @@
 from typing import Callable, cast
 
-from interface.account import Account
-from interface.email import Email
-from interface.verify import Verify
+from contract.interface.account import Account
+from contract.interface.email import Email
+from contract.interface.verify import Verify
 from ninja import Schema
-from type.result import Result
-from type.schema import OtpSchema, UserSchema
+from contract.type.result import Result
+from contract.type.schema import OtpSchema, UserSchema
 from util.date_util import DateUtil
 from util.string_util import StringUtil
 
@@ -18,7 +18,7 @@ class SendOtpOutput(Schema):
 class OtpLogic:
     @staticmethod
     def send_otp(
-        account_service: Account, verify_service: Verify, email_service: Email
+        account_service: Account, verify_service: Verify, email_repo: Email
     ) -> Callable:
         def inner(
             username: str, otp_type: int, ips: list[str]
@@ -39,7 +39,7 @@ class OtpLogic:
             # Do not send email to trusted target
             if not verify_service.is_trusted_target(email):
                 (subject, body, to) = verify_service.get_otp_email_input(otp)
-                email_service.send_email_async(subject, body, to)
+                email_repo.send_email_async(subject, body, to)
             return (
                 SendOtpOutput(
                     verify_id=str(otp.id),
@@ -66,7 +66,7 @@ class OtpLogic:
 
     @staticmethod
     def resend_otp(
-        account_service: Account, verify_service: Verify, email_service: Email
+        account_service: Account, verify_service: Verify, email_repo: Email
     ) -> Callable[[str], Result[SendOtpOutput]]:
         def inner(id: str) -> Result[SendOtpOutput]:
             result, ok = verify_service.get_otp(
@@ -80,7 +80,7 @@ class OtpLogic:
             otp_type = otp.type
             ips = otp.ips
 
-            return OtpLogic.send_otp(account_service, verify_service, email_service)(
+            return OtpLogic.send_otp(account_service, verify_service, email_repo)(
                 target, otp_type, ips
             )
 

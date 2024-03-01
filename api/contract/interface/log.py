@@ -1,8 +1,8 @@
 import abc
 
-from type.general import Condition, QuerySet
-from type.result import Result
-from type.schema import AuditLogSchema, EmailLogSchema
+from contract.type.general import Condition, QuerySet
+from contract.type.result import Result
+from contract.type.schema import AuditLogSchema, EmailLogSchema
 
 
 class Log(abc.ABC):

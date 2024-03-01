@@ -1,11 +1,11 @@
 from typing import Callable, cast
 
-from interface.account import Account
-from interface.auth import Auth, CommonAuth
+from contract.interface.account import Account
+from contract.interface.auth import Auth, CommonAuth
 from ninja import Schema
-from type.general import Token
-from type.result import ErrorValue, Result
-from type.schema import UserSchema
+from contract.type.general import Token
+from contract.type.result import ErrorValue, Result
+from contract.type.schema import UserSchema
 from util.token_util import TokenUtil
 
 

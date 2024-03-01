@@ -1,10 +1,10 @@
 from typing import Callable
 
-from interface.config import Config, VariableCrud
+from contract.interface.config import Config, VariableCrud
 from ninja import Query
-from type.general import Condition, QuerySet
-from type.result import Result
-from type.schema import VariableSchema
+from contract.type.general import Condition, QuerySet
+from contract.type.result import Result
+from contract.type.schema import VariableSchema
 
 
 class VariableLogic:

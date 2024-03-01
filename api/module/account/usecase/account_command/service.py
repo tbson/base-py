@@ -1,8 +1,8 @@
 from typing import cast
 
 from django.conf import settings
-from interface.account import AccountCommand
-from type.schema import UserSchema
+from contract.interface.account import AccountCommand
+from contract.type.schema import UserSchema
 from module.account.const import (
     PROFILE_TYPE_DICT,
     ProfileType,

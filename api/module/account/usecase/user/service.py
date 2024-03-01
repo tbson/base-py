@@ -1,11 +1,11 @@
 from typing import Optional
 
-from interface.account import UserCrud
+from contract.interface.account import UserCrud
 from module.account.models import Role, User
 from ninja import Query
-from type.general import Condition, QuerySet
-from type.result import Result
-from type.schema import UserSchema
+from contract.type.general import Condition, QuerySet
+from contract.type.result import Result
+from contract.type.schema import UserSchema
 from util.error_util import ErrorUtil
 
 

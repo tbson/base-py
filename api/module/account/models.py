@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from module.account.const import PROFILE_TYPE_CHOICE, PROFILE_TYPE_DICT, ProfileType
-from type.schema import PemSchema, RoleSchema, TenantSchema, UserSchema
+from contract.type.schema import PemSchema, RoleSchema, TenantSchema, UserSchema
 from util.framework.model.timestamped_model import TimestampedModel
 
 

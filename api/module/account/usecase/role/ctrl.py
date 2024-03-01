@@ -8,7 +8,7 @@ from module.account.usecase.role.presenter import RolePagingPresent, RolePresent
 from module.account.usecase.role.service import RoleService
 from module.account.usecase.role.validator import CreateRoleInput, UpdateRoleInput
 from ninja import Field, FilterSchema, Query, Router
-from type.result import ErrorResponse, ErrorValue
+from contract.type.result import ErrorResponse, ErrorValue
 from util.framework.authorization.auth_rbac import AuthRbac
 from util.request_util import RequestUtil
 

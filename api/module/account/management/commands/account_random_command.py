@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from type.general import Args, Kwargs
+from contract.type.general import Args, Kwargs
 
 
 class Command(BaseCommand):

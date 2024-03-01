@@ -2,10 +2,10 @@ from typing import cast
 
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
-from interface.auth import Auth
-from type.general import Token
-from type.result import Result
-from type.schema import UserSchema
+from contract.interface.auth import Auth
+from contract.type.general import Token
+from contract.type.result import Result
+from contract.type.schema import UserSchema
 from util.date_util import DateUtil
 from util.error_util import ErrorUtil
 from util.token_util import TokenUtil

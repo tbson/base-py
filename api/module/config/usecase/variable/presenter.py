@@ -2,8 +2,8 @@ from typing import Callable, List
 
 from module.config.models import Variable
 from ninja import ModelSchema
-from type.general import QuerySet
-from type.schema import VariableSchema
+from contract.type.general import QuerySet
+from contract.type.schema import VariableSchema
 from util.framework.paging_util import PagingResponse, PagingUtil
 
 

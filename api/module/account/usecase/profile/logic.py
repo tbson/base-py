@@ -1,9 +1,9 @@
 from typing import Callable, Optional
 
-from interface.account import Account
+from contract.interface.account import Account
 from ninja import Schema
-from type.result import Result
-from type.schema import UserSchema
+from contract.type.result import Result
+from contract.type.schema import UserSchema
 
 
 class ProfilePresent(Schema):

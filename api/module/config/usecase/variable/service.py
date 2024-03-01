@@ -1,10 +1,10 @@
-from interface.config import VariableCrud
+from contract.interface.config import VariableCrud
 from module.config.const import VARIABLE_TYPE_CHOICE
 from module.config.models import Variable
 from ninja import Query
-from type.general import Condition, QuerySet
-from type.result import Result
-from type.schema import VariableSchema
+from contract.type.general import Condition, QuerySet
+from contract.type.result import Result
+from contract.type.schema import VariableSchema
 from util.error_util import ErrorUtil
 
 

@@ -2,7 +2,7 @@ import asyncio
 from functools import wraps
 from typing import Callable
 
-from type.general import Args, Kwargs
+from contract.type.general import Args, Kwargs
 
 
 def async_task(f: Callable) -> Callable[..., None]:

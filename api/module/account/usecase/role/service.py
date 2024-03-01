@@ -1,12 +1,12 @@
 from typing import Optional
 
-from interface.account import RoleCrud
+from contract.interface.account import RoleCrud
 from module.account.const import PROFILE_TYPE_CHOICE_ADMIN, PROFILE_TYPE_CHOICE_TENANT
 from module.account.models import Pem, Role
 from ninja import Query
-from type.general import Condition, QuerySet
-from type.result import Result
-from type.schema import RoleSchema
+from contract.type.general import Condition, QuerySet
+from contract.type.result import Result
+from contract.type.schema import RoleSchema
 from util.error_util import ErrorUtil
 
 

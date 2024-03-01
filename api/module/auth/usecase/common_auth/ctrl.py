@@ -7,7 +7,7 @@ from module.auth.usecase.common_auth.logic import CommonAuthLogic, RefreshTokenO
 from module.auth.usecase.common_auth.service import CommonAuthService
 from module.auth.usecase.common_auth.validator import RefreshTokenInput
 from ninja import Router
-from type.result import ErrorResponse, ErrorValue
+from contract.type.result import ErrorResponse, ErrorValue
 from util.framework.authorization.auth_bearer import AuthBearer
 from util.request_util import RequestUtil
 

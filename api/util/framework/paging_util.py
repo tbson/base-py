@@ -2,7 +2,7 @@ from typing import Any, Callable, Optional
 
 from django.core.paginator import Paginator
 from ninja import ModelSchema, Schema
-from type.general import QuerySet
+from contract.type.general import QuerySet
 
 PAGE_SIZE = 10
 

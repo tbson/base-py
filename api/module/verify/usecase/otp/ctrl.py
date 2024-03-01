@@ -11,8 +11,8 @@ from module.verify.usecase.otp.validator import (
     VerifyOtpInput,
 )
 from ninja import Router
-from service.email_service import EmailService
-from type.result import ErrorResponse, ErrorValue
+from repo.email_repo import EmailRepo
+from contract.type.result import ErrorResponse, ErrorValue
 from util.request_util import RequestUtil
 
 router = Router()
@@ -29,7 +29,7 @@ def send_reset_pwd_otp(
 ) -> SendOtpOutput | ErrorResponse:
     ips = RequestUtil.get_ips(request.headers)
     otp_type = OtpType.RESET_PWD
-    (result, ok) = OtpLogic.send_otp(AccountService(), VerifyService(), EmailService())(
+    (result, ok) = OtpLogic.send_otp(AccountService(), VerifyService(), EmailRepo())(
         data.username, otp_type, ips
     )
     return result if ok else RequestUtil.err(result)
@@ -45,7 +45,7 @@ def send_signup_otp(
 ) -> SendOtpOutput | ErrorResponse:
     ips = RequestUtil.get_ips(request.headers)
     otp_type = OtpType.SIGNUP
-    (result, ok) = OtpLogic.send_otp(AccountService(), VerifyService(), EmailService())(
+    (result, ok) = OtpLogic.send_otp(AccountService(), VerifyService(), EmailRepo())(
         data.username, otp_type, ips
     )
     return result if ok else RequestUtil.err(result)
@@ -59,9 +59,9 @@ def send_signup_otp(
 def resend_otp(
     request: HttpRequest, data: ResendOtpInput
 ) -> SendOtpOutput | ErrorResponse:
-    (result, ok) = OtpLogic.resend_otp(
-        AccountService(), VerifyService(), EmailService()
-    )(data.verify_id)
+    (result, ok) = OtpLogic.resend_otp(AccountService(), VerifyService(), EmailRepo())(
+        data.verify_id
+    )
     return cast(SendOtpOutput, result) if ok else RequestUtil.err(result)
 
 

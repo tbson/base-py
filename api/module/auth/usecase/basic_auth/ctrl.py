@@ -16,7 +16,7 @@ from module.auth.usecase.basic_auth.validator import (
 from module.log.service import AuditLogService, LogService
 from module.verify.service import VerifyService
 from ninja import Router
-from type.result import ErrorValue
+from contract.type.result import ErrorValue
 from util.framework.authorization.auth_bearer import AuthBearer
 from util.request_util import RequestUtil
 

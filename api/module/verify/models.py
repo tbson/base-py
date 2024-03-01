@@ -3,7 +3,7 @@ import uuid
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from module.verify.const import OTP_SOURCE_CHOICE, OTP_TYPE_CHOICE, OtpSource
-from type.schema import OtpSchema, TrustedTargetSchema
+from contract.type.schema import OtpSchema, TrustedTargetSchema
 from util.framework.model.timestamped_model import TimestampedModel
 
 

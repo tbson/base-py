@@ -1,6 +1,6 @@
-from interface.auth import CommonAuth
-from type.result import Result
-from type.schema import UserSchema
+from contract.interface.auth import CommonAuth
+from contract.type.result import Result
+from contract.type.schema import UserSchema
 from util.error_util import ErrorUtil
 from util.token_util import TokenUtil
 

@@ -1,7 +1,7 @@
 from urllib.parse import parse_qs, urlsplit
 
 from django.conf import settings
-from type.result import ErrorResponse, ErrorValue
+from contract.type.result import ErrorResponse, ErrorValue
 
 
 class RequestUtil:

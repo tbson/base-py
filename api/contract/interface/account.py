@@ -2,9 +2,9 @@ import abc
 from typing import Optional
 
 from ninja import Query
-from type.general import Condition, QuerySet
-from type.result import Result
-from type.schema import PemSchema, RoleSchema, TenantSchema, UserSchema
+from contract.type.general import Condition, QuerySet
+from contract.type.result import Result
+from contract.type.schema import PemSchema, RoleSchema, TenantSchema, UserSchema
 
 
 class Account(abc.ABC):

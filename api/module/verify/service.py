@@ -3,11 +3,11 @@ from typing import Optional, cast
 
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-from interface.verify import Verify
+from contract.interface.verify import Verify
 from module.verify.models import Otp, TrustedTarget
-from type.general import Condition
-from type.result import Result
-from type.schema import OtpSchema
+from contract.type.general import Condition
+from contract.type.result import Result
+from contract.type.schema import OtpSchema
 from util.date_util import DateUtil
 from util.error_util import ErrorUtil
 from util.string_util import StringUtil

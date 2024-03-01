@@ -1,11 +1,11 @@
 from typing import Optional, cast
 
 from django.utils.translation import gettext_lazy as _
-from interface.account import Account
+from contract.interface.account import Account
 from module.account.models import Pem, Role, Tenant, User
-from type.general import Condition, QuerySet
-from type.result import Result
-from type.schema import PemSchema, RoleSchema, TenantSchema, UserSchema
+from contract.type.general import Condition, QuerySet
+from contract.type.result import Result
+from contract.type.schema import PemSchema, RoleSchema, TenantSchema, UserSchema
 from util.error_util import ErrorUtil
 from util.framework.schema_util import SchemaUtil
 

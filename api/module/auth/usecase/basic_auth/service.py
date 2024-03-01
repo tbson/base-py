@@ -1,12 +1,12 @@
 from typing import Tuple
 
 from django.utils.translation import gettext_lazy as _
-from interface.auth import BasicAuth
+from contract.interface.auth import BasicAuth
 from module.account.const import ProfileType
 from module.account.models import Pem, User
-from type.general import Token
-from type.result import Result
-from type.schema import UserSchema
+from contract.type.general import Token
+from contract.type.result import Result
+from contract.type.schema import UserSchema
 from util.date_util import DateUtil
 from util.error_util import ErrorUtil
 from util.token_util import TokenUtil

@@ -3,7 +3,7 @@ from module.account.service import AccountService
 from module.account.sync_role_service import AccountSyncRoleService
 from module.account.usecase.account_command.logic import AccountCommandLogic
 from module.account.usecase.account_command.service import AccountCommandService
-from type.general import Args, Kwargs
+from contract.type.general import Args, Kwargs
 
 
 class Command(BaseCommand):

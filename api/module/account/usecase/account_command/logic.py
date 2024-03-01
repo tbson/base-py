@@ -1,8 +1,8 @@
 from typing import Callable, cast
 
-from interface.account import Account, AccountCommand, AccountSyncRole
-from type.general import QuerySet
-from type.schema import TenantSchema
+from contract.interface.account import Account, AccountCommand, AccountSyncRole
+from contract.type.general import QuerySet
+from contract.type.schema import TenantSchema
 
 
 class AccountCommandLogic:

@@ -8,7 +8,7 @@ from module.account.usecase.user.presenter import UserPagingPresent, UserPresent
 from module.account.usecase.user.service import UserService
 from module.account.usecase.user.validator import CreateUserInput, UpdateUserInput
 from ninja import Field, FilterSchema, Query, Router
-from type.result import ErrorResponse, ErrorValue
+from contract.type.result import ErrorResponse, ErrorValue
 from util.framework.authorization.auth_rbac import AuthRbac
 from util.request_util import RequestUtil
 

@@ -1,13 +1,13 @@
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
-from interface.email import Email
-from type.email import EmailBody, EmailSubject, EmailTo
-from type.result import Result
+from contract.interface.email import Email
+from contract.type.email import EmailBody, EmailSubject, EmailTo
+from contract.type.result import Result
 from util.async_util import async_task
 from util.error_util import ErrorUtil
 
 
-class EmailService(Email):
+class EmailRepo(Email):
     def send_email(
         self, subject: EmailSubject, body: EmailBody, to: EmailTo
     ) -> Result[str]:

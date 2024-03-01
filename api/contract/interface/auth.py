@@ -1,9 +1,9 @@
 import abc
 from typing import Tuple
 
-from type.general import Token
-from type.result import Result
-from type.schema import UserSchema
+from contract.type.general import Token
+from contract.type.result import Result
+from contract.type.schema import UserSchema
 
 
 class Auth(abc.ABC):

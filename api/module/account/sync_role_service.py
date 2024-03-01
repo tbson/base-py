@@ -1,7 +1,7 @@
 from typing import Optional
-from interface.account import AccountSyncRole
+from contract.interface.account import AccountSyncRole
 from util.framework.authorization.auth_rbac import AuthRbacUtil
-from type.schema import RoleSchema, PemSchema
+from contract.type.schema import RoleSchema, PemSchema
 from module.account.models import Role, Pem
 from module.account.const import (
     SYSTEM_PROFILE_TYPES,

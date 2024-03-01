@@ -1,9 +1,9 @@
 import abc
 from typing import Optional
 
-from type.general import Condition
-from type.result import Result
-from type.schema import OtpSchema, TrustedTargetSchema
+from contract.type.general import Condition
+from contract.type.result import Result
+from contract.type.schema import OtpSchema, TrustedTargetSchema
 
 ExtraData = Optional[dict[str, str]]
 
