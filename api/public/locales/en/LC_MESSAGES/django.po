@@ -1,0 +1,146 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-27 07:34+0700\n"
+"PO-Revision-Date: 2020-02-19 11:22+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: module/account/models.py:49 module/account/models.py:82
+msgid "tenant"
+msgstr ""
+
+#: module/account/models.py:118
+msgid "user"
+msgstr ""
+
+#: module/account/service.py:28
+msgid "tenant does not exist"
+msgstr ""
+
+#: module/account/service.py:67
+msgid "role does not exist"
+msgstr ""
+
+#: module/account/service.py:114
+msgid "pem does not exist"
+msgstr ""
+
+#: module/account/service.py:154
+msgid "user does not exist"
+msgstr ""
+
+#: module/auth/service.py:26
+msgid "user not found"
+msgstr ""
+
+#: module/auth/usecase/basic_auth/service.py:18
+msgid "incorrect login information, please try again"
+msgstr ""
+
+#: module/auth/usecase/basic_auth/service.py:22
+msgid "account is not active"
+msgstr ""
+
+#: module/auth/usecase/basic_auth/service.py:53
+msgid "failed to get permissions"
+msgstr ""
+
+#: module/auth/usecase/basic_auth/service.py:63
+msgid "failed to update last login time"
+msgstr ""
+
+#: module/auth/usecase/basic_auth/service.py:69
+msgid "password and confirm password didn't match"
+msgstr ""
+
+#: module/auth/usecase/basic_auth/service.py:77
+msgid "incorrect current password"
+msgstr ""
+
+#: module/auth/usecase/basic_auth/service.py:88
+msgid "failed to update password"
+msgstr ""
+
+#: module/config/service.py:27
+msgid "variable does not exist"
+msgstr ""
+
+#: module/log/service.py:153
+msgid "email log does not exist"
+msgstr ""
+
+#: module/log/service.py:194
+msgid "audit log does not exist"
+msgstr ""
+
+#: module/log/service.py:222
+msgid "user reached daily login fail limit"
+msgstr ""
+
+#: module/log/service.py:236
+msgid "user use old password"
+msgstr ""
+
+#: module/verify/service.py:30
+msgid "OTP does not exist"
+msgstr ""
+
+#: module/verify/service.py:43
+msgid "OTP daily quota exceeded"
+msgstr ""
+
+#: module/verify/service.py:65
+msgid "Failed to create OTP"
+msgstr ""
+
+#: module/verify/service.py:79
+msgid "OTP code is not valid"
+msgstr ""
+
+#: module/verify/service.py:86
+msgid "OTP does not exist or expired"
+msgstr ""
+
+#: module/verify/service.py:101
+msgid "OTP Verification"
+msgstr ""
+
+#: util/error_util.py:8
+msgid "this field is required"
+msgstr ""
+
+#: util/error_util.py:10
+#, python-brace-format
+msgid "ensure this value has at most {limit_value} characters"
+msgstr ""
+
+#: util/error_util.py:13
+#, python-brace-format
+msgid "ensure this value has at least {limit_value} characters"
+msgstr ""
+
+#: util/error_util.py:15 util/error_util.py:16
+#, python-brace-format
+msgid "ensure this value is greater than {limit_value}"
+msgstr ""
+
+#: util/token_util.py:87
+msgid "can not decode token"
+msgstr ""
+
+#: util/token_util.py:121
+msgid "can not refresh token"
+msgstr ""

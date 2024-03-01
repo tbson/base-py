@@ -1,0 +1,239 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Plural-Forms: nplurals = 2; plural = (n != 1);\n"
+"Language: en\n"
+"mime-version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/component/auth/basic_auth/login/index.jsx:59
+msgid "Forgot password"
+msgstr ""
+
+#: src/component/auth/basic_auth/login/form.jsx:27
+#: src/component/auth/basic_auth/send_reset_pwd_otp/form.jsx:33
+msgid "Username"
+msgstr ""
+
+#: src/component/account/user/config.js:46
+#: src/component/auth/basic_auth/login/form.jsx:32
+#: src/component/auth/basic_auth/reset_pwd/form.jsx:38
+msgid "Password"
+msgstr ""
+
+#: src/component/auth/basic_auth/login/form.jsx:62
+#: src/component/auth/basic_auth/login/index.jsx:52
+msgid "Login"
+msgstr ""
+
+#: src/component/auth/basic_auth/config.js:32
+#: src/component/common/layout/main/index.jsx:58
+msgid "Profile"
+msgstr ""
+
+#: src/component/account/user/config.js:41
+#: src/component/account/user/profile/summary.jsx:23
+msgid "Fullname"
+msgstr ""
+
+#: src/component/account/user/config.js:44
+#: src/component/account/user/profile/summary.jsx:11
+msgid "Email"
+msgstr ""
+
+#: src/component/account/user/config.js:45
+#: src/component/account/user/profile/summary.jsx:17
+#: src/component/account/user/profile/update_profile/form.jsx:21
+msgid "Phone number"
+msgstr ""
+
+#: src/component/account/user/config.js:47
+msgid "Active"
+msgstr ""
+
+#: src/component/account/user/profile/index.jsx:44
+#: src/component/account/user/profile/update_profile/index.jsx:42
+#: src/component/account/user/profile/update_profile/index.jsx:45
+msgid "Update profile"
+msgstr ""
+
+#: src/component/account/user/profile/index.jsx:52
+#: src/component/auth/basic_auth/change_pwd/index.jsx:39
+#: src/component/auth/basic_auth/change_pwd/index.jsx:42
+msgid "Change password"
+msgstr ""
+
+#: src/component/auth/basic_auth/reset_pwd/index.jsx:42
+#: src/component/auth/basic_auth/send_reset_pwd_otp/index.jsx:51
+#: src/component/auth/basic_auth/send_reset_pwd_otp/index.jsx:53
+msgid "Reset password"
+msgstr ""
+
+#: src/component/account/role/dialog/index.jsx:64
+#: src/component/account/user/dialog/index.jsx:64
+#: src/component/account/user/profile/update_profile/index.jsx:44
+#: src/component/auth/basic_auth/change_pwd/index.jsx:41
+#: src/component/auth/basic_auth/reset_pwd/index.jsx:41
+#: src/component/auth/basic_auth/send_reset_pwd_otp/index.jsx:52
+#: src/component/auth/basic_auth/verify_otp/index.jsx:90
+#: src/component/config/variable/dialog/index.jsx:64
+msgid "Cancel"
+msgstr ""
+
+#: src/component/auth/basic_auth/change_pwd/form.jsx:32
+msgid "New password"
+msgstr ""
+
+#: src/component/auth/basic_auth/change_pwd/form.jsx:37
+msgid "Confirm new password"
+msgstr ""
+
+#: src/component/common/table/buttons.jsx:9
+#: src/service/helper/util.js:117
+msgid "Add new"
+msgstr ""
+
+#: src/component/account/role/dialog/index.jsx:62
+#: src/component/account/user/dialog/index.jsx:62
+#: src/component/config/variable/dialog/index.jsx:62
+msgid "Save"
+msgstr ""
+
+#: src/component/common/table/buttons.jsx:30
+#: src/service/helper/util.js:117
+msgid "Update"
+msgstr ""
+
+#: src/component/account/role/config.js:18
+#: src/component/account/user/config.js:25
+#: src/component/config/variable/config.js:18
+#, javascript-format
+msgid "Do you want to remote this ${ name }?"
+msgstr ""
+
+#: src/component/account/role/config.js:19
+#: src/component/account/user/config.js:26
+#: src/component/config/variable/config.js:19
+#, javascript-format
+msgid "Do you want to remote these ${ name }?"
+msgstr ""
+
+#: src/component/common/table/buttons.jsx:23
+msgid "Remove selected"
+msgstr ""
+
+#: src/component/account/user/config.js:42
+msgid "Lastname"
+msgstr ""
+
+#: src/component/account/user/config.js:43
+msgid "Firstname"
+msgstr ""
+
+#: src/component/account/role/config.js:32
+msgid "Permissions"
+msgstr ""
+
+#: src/component/common/table/search_input.jsx:25
+msgid "Search"
+msgstr ""
+
+#: src/component/common/table/buttons.jsx:45
+msgid "Remove"
+msgstr ""
+
+#: src/component/common/layout/main/index.jsx:61
+#: src/component/config/variable/config.js:14
+msgid "Variable"
+msgstr ""
+
+#: src/component/config/variable/config.js:23
+msgid "Key"
+msgstr ""
+
+#: src/component/config/variable/config.js:24
+msgid "Value"
+msgstr ""
+
+#: src/component/config/variable/config.js:25
+msgid "Description"
+msgstr ""
+
+#: src/component/config/variable/config.js:26
+msgid "Type"
+msgstr ""
+
+#: src/component/common/table/pagination.jsx:28
+msgid "Prev"
+msgstr ""
+
+#: src/component/common/table/pagination.jsx:29
+msgid "Next"
+msgstr ""
+
+#: src/component/account/user/config.js:21
+#: src/component/common/layout/main/index.jsx:69
+msgid "User"
+msgstr ""
+
+#: src/component/account/role/config.js:14
+#: src/component/common/layout/main/index.jsx:75
+msgid "Role"
+msgstr ""
+
+#: src/component/auth/basic_auth/verify_otp/form.jsx:41
+msgid "OTP code"
+msgstr ""
+
+#: src/component/auth/basic_auth/verify_otp/form.jsx:60
+msgid "OTP code has been sent to"
+msgstr ""
+
+#: src/component/auth/basic_auth/verify_otp/index.jsx:55
+msgid "OTP resent"
+msgstr ""
+
+#: src/component/auth/basic_auth/verify_otp/index.jsx:56
+msgid "Please check your email for the new OTP"
+msgstr ""
+
+#: src/component/auth/basic_auth/verify_otp/index.jsx:63
+msgid "Error"
+msgstr ""
+
+#: src/component/auth/basic_auth/verify_otp/index.jsx:80
+#: src/component/auth/basic_auth/verify_otp/index.jsx:97
+msgid "Verify OTP"
+msgstr ""
+
+#: src/component/auth/basic_auth/verify_otp/index.jsx:86
+msgid "Resend OTP"
+msgstr ""
+
+#: src/component/auth/basic_auth/reset_pwd/form.jsx:43
+msgid "Password confirm"
+msgstr ""
+
+#: src/component/auth/basic_auth/change_pwd/form.jsx:27
+msgid "Current password"
+msgstr ""
+
+#: src/component/account/user/config.js:48
+msgid "Roles"
+msgstr ""
+
+#: src/component/account/user/profile/update_profile/form.jsx:25
+msgid "First name"
+msgstr ""
+
+#: src/component/account/user/profile/update_profile/form.jsx:30
+msgid "Last name"
+msgstr ""
+
+#: src/component/account/role/config.js:30
+msgid "Role name"
+msgstr ""
+
+#: src/component/account/role/config.js:31
+msgid "Profile type"
+msgstr ""

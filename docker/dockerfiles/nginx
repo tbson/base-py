@@ -1,0 +1,5 @@
+FROM nginx:1.25.2-alpine
+RUN mkdir /resource
+RUN mkdir /resource/ssl
+RUN mkdir /resource/public
+WORKDIR /resource
