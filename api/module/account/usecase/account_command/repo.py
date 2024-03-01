@@ -8,7 +8,7 @@ from module.account.const import (
     ProfileType,
 )
 from module.account.models import Role
-from module.account.service import AccountService
+from module.account.repo import AccountRepo
 
 
 class AccountCommandRepo(AccountCommand):
@@ -30,7 +30,7 @@ class AccountCommandRepo(AccountCommand):
         }
         for profile_type, data in list_data.items():
             group = Role.objects.get(title=PROFILE_TYPE_DICT[profile_type])
-            user, ok = AccountService().create_user(data)
+            user, ok = AccountRepo().create_user(data)
             if ok:
                 user = cast(UserSchema, user)
                 user.roles.add(group)

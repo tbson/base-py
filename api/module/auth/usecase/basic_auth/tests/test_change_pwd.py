@@ -2,10 +2,10 @@ from django.conf import settings
 from django.test import TestCase
 from module.account.repo import AccountRepo
 from module.account.sync_role_repo import AccountSyncRoleRepo
-from module.account.usecase.account_command.service import AccountCommandRepo
+from module.account.usecase.account_command.service import AccountCommandService
 from module.account.usecase.account_command.repo import AccountCommandRepo
 from module.auth.repo import AuthRepo
-from module.auth.usecase.basic_auth.logic import BasicAuthRepo
+from module.auth.usecase.basic_auth.service import BasicAuthService
 from module.auth.usecase.basic_auth.repo import BasicAuthRepo
 from module.log.repo import LogRepo
 
@@ -16,9 +16,9 @@ class TestChangePwd(TestCase):
         self.current_pwd = settings.SAMPLE_PASSWORD
         self.password = "12345678"
         self.password_confirm = "12345678"
-        self.change_pwd = BasicAuthRepo.change_pwd(BasicAuthRepo(), LogRepo())
-        self.login = BasicAuthRepo.login(AuthRepo(), BasicAuthRepo(), LogRepo())
-        AccountCommandRepo.seeding_users(
+        self.change_pwd = BasicAuthService.change_pwd(BasicAuthRepo(), LogRepo())
+        self.login = BasicAuthService.login(AuthRepo(), BasicAuthRepo(), LogRepo())
+        AccountCommandService.seeding_users(
             AccountRepo(), AccountSyncRoleRepo(), AccountCommandRepo()
         )()
         user, _ = AccountRepo().get_user(dict(email=self.email))

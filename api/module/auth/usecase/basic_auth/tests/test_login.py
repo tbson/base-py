@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from module.account.repo import AccountRepo
 from module.account.sync_role_repo import AccountSyncRoleRepo
-from module.account.usecase.account_command.logic import AccountCommandLogic
+from module.account.usecase.account_command.service import AccountCommandService
 from module.account.usecase.account_command.repo import AccountCommandRepo
 from module.auth.repo import AuthRepo
 from module.auth.usecase.basic_auth.service import BasicAuthService
@@ -18,7 +18,7 @@ class TestLogin(TestCase):
         self.password = settings.SAMPLE_PASSWORD
         self.login = BasicAuthService.login(AuthRepo(), BasicAuthRepo(), LogRepo())
 
-        AccountCommandLogic.seeding_users(
+        AccountCommandService.seeding_users(
             AccountRepo(), AccountSyncRoleRepo(), AccountCommandRepo()
         )()
 
