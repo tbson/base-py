@@ -6,15 +6,11 @@ from ninja.errors import ValidationError
 from contract.type.result import ErrorValue
 
 PYDANTIC_ERROR_MAP = {
-    "value_error.missing": _("this field is required"),
-    "value_error.any_str.max_length": _(
-        "ensure this value has at most {limit_value} characters"
-    ),
-    "value_error.any_str.min_length": _(
-        "ensure this value has at least {limit_value} characters"
-    ),
-    "value_error.number.not_gt": _("ensure this value is greater than {limit_value}"),
-    "value_error.number.not_lt": _("ensure this value is greater than {limit_value}"),
+    "missing": _("this field is required"),
+    "string_too_long": _("ensure this value has at most {max_length} characters"),
+    "string_too_short": _("ensure this value has at least {min_length} characters"),
+    "greater_than": _("ensure this value is greater than {gt}"),
+    "less_than": _("ensure this value is greater than {lt}"),
 }
 
 
@@ -47,7 +43,7 @@ class ErrorUtil:
                 ctx = i.get("ctx", {})
                 return [raw_msg.format(**ctx)]
 
-            data = {".".join(i["loc"][2:]): parse_msg(i) for i in data.errors}
+            data = {i["loc"][-1]: parse_msg(i) for i in data.errors}
         return data if isinstance(data, dict) else {"detail": [str(data)]}
 
     @staticmethod
