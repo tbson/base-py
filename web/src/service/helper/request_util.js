@@ -51,7 +51,9 @@ export default class RequestUtil {
      * @returns {Object}
      */
     static convertParams(method, data) {
-        if (['post', 'put'].includes(method.toLowerCase())) return data;
+        if (['post', 'put'].includes(method.toLowerCase())) {
+            return data;
+        }
         return { params: data };
     }
 
@@ -62,10 +64,17 @@ export default class RequestUtil {
      * @param {string} method - method: get, post, put, delete
      * @returns {Promise} Axios response promise
      */
-    static async request(url, params = {}, method = 'get', blobResponseType = false) {
-        const { data, 'Content-Type': contentType } = RequestUtil.fileInObject(params)
-            ? RequestUtil.getFormDataPayload(params)
-            : RequestUtil.getJsonPayload(params);
+    static async request(
+        url,
+        params = {},
+        method = 'get',
+        formData = false,
+        blobResponseType = false
+    ) {
+        const { data, 'Content-Type': contentType } =
+            RequestUtil.fileInObject(params) || formData
+                ? RequestUtil.getFormDataPayload(params)
+                : RequestUtil.getJsonPayload(params);
         const token = StorageUtil.getToken();
         const config = {
             method,
@@ -96,14 +105,26 @@ export default class RequestUtil {
      * @param {string} method - method: get, post, put, delete
      * @returns {Promise} Axios response promise
      */
-    static async apiCall(url, params = {}, method = 'get', blobResponseType = false) {
+    static async apiCall(
+        url,
+        params = {},
+        method = 'get',
+        formData = false,
+        blobResponseType = false
+    ) {
         const emptyError = {
             response: {
                 data: {}
             }
         };
         try {
-            return await RequestUtil.request(url, params, method, blobResponseType);
+            return await RequestUtil.request(
+                url,
+                params,
+                method,
+                formData,
+                blobResponseType
+            );
         } catch (err) {
             if (err.response.status === 401) {
                 const refreshUrl = 'auth/common-auth/refresh-token/';
@@ -114,7 +135,7 @@ export default class RequestUtil {
                         { refresh_token: StorageUtil.getRefreshToken() },
                         'POST'
                     );
-                    const token = refreshTokenResponse.data.token;
+                    const { token } = refreshTokenResponse.data;
                     StorageUtil.setToken(token);
 
                     try {

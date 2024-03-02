@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Select } from "antd";
+import * as React from 'react';
+import { Select } from 'antd';
 const { Option } = Select;
 
 /**
@@ -20,13 +20,13 @@ export default function TreeCheckInput({
     options,
     mode = null,
     block = false,
-    blankLabel = "",
+    blankLabel = '',
     allowClear = false,
     disabled = false,
     onChange
 }) {
     function optionsWithBlankValue(options) {
-        const isMulti = mode === "multiple";
+        const isMulti = mode === 'multiple';
         if (isMulti || !blankLabel) return options;
 
         const blankOption = {
@@ -38,16 +38,18 @@ export default function TreeCheckInput({
 
     return (
         <Select
-            style={{ width: block ? "100%" : "auto" }}
+            style={{ width: block ? '100%' : 'auto' }}
             showSearch
             allowClear={allowClear}
             value={value}
             mode={mode}
             disabled={disabled}
             onChange={onChange}
-            filterOption={(input, option) =>
-                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
+            filterOption={(input, option) => {
+                return (option?.children.toLowerCase() ?? '').includes(
+                    (input || '').toLowerCase()
+                );
+            }}
         >
             {optionsWithBlankValue(options).map(({ value, label }) => (
                 <Option key={value} value={value}>

@@ -1,6 +1,6 @@
-import { notification } from "antd";
-import Util from "service/helper/util";
-import RequestUtil from "service/helper/request_util";
+import { notification } from 'antd';
+import Util from 'service/helper/util';
+import RequestUtil from 'service/helper/request_util';
 
 export default class FormUtil {
     /**
@@ -12,9 +12,9 @@ export default class FormUtil {
 
     static setFormErrors(form = null) {
         return (errorDict) => {
-            if ("detail" in errorDict) {
+            if ('detail' in errorDict) {
                 notification.error({
-                    message: "Error",
+                    message: 'Error',
                     description: errorDict.detail,
                     duration: 8
                 });
@@ -24,7 +24,7 @@ export default class FormUtil {
                 form.setFields(
                     Object.entries(errorDict).map(([name, errors]) => ({
                         name,
-                        errors: typeof errors === "string" ? [errors] : errors
+                        errors: typeof errors === 'string' ? [errors] : errors
                     }))
                 );
         };
@@ -35,10 +35,16 @@ export default class FormUtil {
      *
      * @param {Object} payload
      */
-    static submit(url, payload, method = "post") {
+    static submit(
+        url,
+        payload,
+        method = 'post',
+        formData = false,
+        blobResponseType = false
+    ) {
         Util.toggleGlobalLoading();
         return new Promise((resolve, reject) => {
-            RequestUtil.apiCall(url, payload, method)
+            RequestUtil.apiCall(url, payload, method, formData, blobResponseType)
                 .then((resp) => {
                     resolve(resp.data);
                 })
@@ -56,7 +62,7 @@ export default class FormUtil {
      * @returns {String}
      */
     static getDefaultFieldName(fieldName) {
-        return fieldName ? `"${fieldName}"` : "này";
+        return fieldName ? `"${fieldName}"` : 'này';
     }
 
     /**
@@ -65,7 +71,7 @@ export default class FormUtil {
      * @param {String} fieldName
      * @returns {Object} - Antd Form Rule Object
      */
-    static ruleRequired(fieldName = "") {
+    static ruleRequired(fieldName = '') {
         fieldName = FormUtil.getDefaultFieldName(fieldName);
         return {
             required: true,
@@ -80,10 +86,10 @@ export default class FormUtil {
      * @param {String} fieldName
      * @returns {Object} - Antd Form Rule Object
      */
-    static ruleMin(min, fieldName = "") {
+    static ruleMin(min, fieldName = '') {
         fieldName = FormUtil.getDefaultFieldName(fieldName);
         return {
-            type: "number",
+            type: 'number',
             min,
             message: `Trường "${fieldName}" có giá trị bé nhất là: ${min}`
         };
@@ -96,10 +102,10 @@ export default class FormUtil {
      * @param {String} fieldName
      * @returns {Object} - Antd Form Rule Object
      */
-    static ruleMax(max, fieldName = "") {
+    static ruleMax(max, fieldName = '') {
         fieldName = FormUtil.getDefaultFieldName(fieldName);
         return {
-            type: "number",
+            type: 'number',
             max,
             message: `Trường "${fieldName}" có giá trị lớn nhất là: ${max}`
         };
