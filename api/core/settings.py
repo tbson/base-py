@@ -210,8 +210,12 @@ JWT_CONFIG = {
     "SECRET_KEY": SECRET_KEY,
     "ALGORITHM": "HS256",
     "AUTH_HEADER_TYPES": "JWT",
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ACCESS_TOKEN_LIFETIME": timedelta(
+        minutes=int(os.environ.get("ACCESS_TOKEN_LIFETIME", "360"))
+    ),
+    "REFRESH_TOKEN_LIFETIME": timedelta(
+        minutes=int(os.environ.get("REFRESH_TOKEN_LIFETIME", "360"))
+    ),
     "UPDATE_LAST_LOGIN": True,
 }
 
